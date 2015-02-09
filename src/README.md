@@ -3,6 +3,6 @@ Use main.py to launch game. (materials folder must be in the same directory as m
 
 REQUIREMENTS:
 
-Python 2.7.5 (unsure if works with 3)
-Pygame 1.9.1
-py2exe (for compiling to exe)
+Python 2.7.5 (unsure if works with 3);
+Pygame 1.9.1;
+py2exe (for compiling to exe);
