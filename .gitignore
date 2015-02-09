@@ -13,7 +13,6 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-game2exe.py
 
 # Windows shortcuts
 *.lnk
