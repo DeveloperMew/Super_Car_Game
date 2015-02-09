@@ -188,6 +188,10 @@ def main_init():
     #score_i = 0
     lives_i = 3
 
+def write_score(points):
+    scores = open('Scores.txt', 'a')
+    scores.write(str(time.strftime("%H:%M:%S")) + ' ' + str(time.strftime("%d/%m/%Y")) + ' score: ' + str(points) + "\n")
+
 move_all = True
 running = True
 
@@ -330,6 +334,7 @@ while running:
         coinList.empty()
         
         if (pygame.key.get_pressed()[pygame.K_r]):
+            write_score(score_i)
             lives_i = 3
             score_i = 0
             move_all = True
