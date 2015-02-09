@@ -111,20 +111,6 @@ class PlayerCar(pygame.sprite.Sprite):
                 self.x = self.x - self.speed
                 self.rect.x = self.x
                     
-    '''def move(self):
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    if self.lane < 4:
-                        self.lane = self.lane + 1
-                    else:
-                        db('NO LANE')
-            
-                if event.key == pygame.K_LEFT:
-                    if self.lane > 1:
-                        self.lane = self.lane - 1
-                    else:
-                        db('NO LANE')'''
 ####################################################################################################
 class AICar(pygame.sprite.Sprite): 
     def __init__(self, rand_lane, speed): 
@@ -199,9 +185,9 @@ class Coin(pygame.sprite.Sprite):#this is very similiar to AICar class (basicall
 
 def main_init():
     global score_i, score, lives_i, lives
-    score_i = 0
+    #score_i = 0
     lives_i = 3
-    
+
 move_all = True
 running = True
 
@@ -213,16 +199,16 @@ def addAI():
         db('spawning')
         aicar = AICar(random.randint(1,2),random.randint(10,20))
         coin = Coin(random.randint(1,4),random.randint(5,10))
-        time.sleep(1)
-        addAI()
+    time.sleep(1)
+    addAI()
 
 #second AI thread
 def addAI2():
     if move_all == True:
         db('spawning2')
         aicar = AICar(random.randint(3,4),random.randint(10,20))
-        time.sleep(1)
-        addAI2()
+    time.sleep(1)
+    addAI2()
 
 def CheckCollisionsCars():
     if pygame.sprite.spritecollide(player, carList, True):
@@ -290,10 +276,6 @@ while running:
 
     #CHECK INPUT
     events = pygame.event.get() #get events before moving!!!!
-    #for event in events:
-   #     if event.type == pygame.KEYDOWN:
-    #        if event.key == pygame.K_SPACE:
-    #            move_all == True
             
     #DRAW OBJECTS
     player.drawObj(screen) #draw player
@@ -305,7 +287,6 @@ while running:
         aicar.drawObj(screen)
     
     ## PLAYER INPUT
-    #player.move()
     player.freemove()
 
     ## Make AI cars move down
@@ -334,13 +315,30 @@ while running:
 
     if move_all == False:
         score_font_f = pygame.font.SysFont("monospace", 40, bold=True)
+        font_quest = pygame.font.SysFont("monospace", 24, bold=True)
+        
         p_score_f = score_font_f.render("Your score is: " + score, 1, (0,0,0))
-        screen.blit(p_score_f, (250,200))  
- 
+        p_endgame = score_font_f.render("GAME OVER", 1, (0,0,0))
+        p_quest = font_quest.render("Press R to restart", 1, (0,0,0))
+        
+        screen.blit(p_endgame, (250,200))
+        screen.blit(p_score_f, (200,250))
+        screen.blit(p_quest, (240,300))
+        
+        carList.empty()
+        carList2.empty()
+        coinList.empty()
+        
+        if (pygame.key.get_pressed()[pygame.K_r]):
+            lives_i = 3
+            score_i = 0
+            move_all = True
+            print(move_all)
     
     for event in events: ## EXIT GAME
         if event.type == pygame.QUIT:
             db("closing")
+            move_all = False
             stopping = True
             db("closing sleep")
             time.sleep(1)
